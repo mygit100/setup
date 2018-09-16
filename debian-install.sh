@@ -5,11 +5,11 @@
 # Add to sudo group
 # usermod -a -G sudo <username>
 
-# or 
-# echo "<username> ALL=(ALL:ALL) ALL" >> /etc/sudoers 
+# or
+# echo "<username> ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # Git debian setup script
-# git https://....
+# git https://github.com/mygit100/setup/blob/master/debian-install.sh
 
 # Launch a separate terminal to track script
 touch ~/tracker
