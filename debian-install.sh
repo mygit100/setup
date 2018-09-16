@@ -1,7 +1,6 @@
 
 # su root
 # apt install git sudo
-test
 
 # Add to sudo group
 usermod -aG sudo <username>
