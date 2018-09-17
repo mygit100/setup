@@ -10,7 +10,9 @@
 # echo "<username> ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # Git debian setup script
-# git https://github.com/mygit100/setup/blob/master/debian-install.sh
+# wget https://raw.githubusercontent.com/mygit100/setup/master/debian-install.sh
+
+sudo apt-get install xterm
 
 # Launch a separate terminal to track script
 touch ~/tracker
