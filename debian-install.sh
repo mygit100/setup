@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # su root
 # apt install git sudo -y
@@ -60,7 +61,7 @@ echo "       type --> rescuetime" >> ~/tracker
 # Install preferred desktop environment
 echo "Installing Cinnamon desktop" >> ~/tracker
 sudo apt-get install cinnamon -y
-echo "    Finished installing Cinnamon desktop" >> ~/tracker
+echo "   Finished installing Cinnamon desktop" >> ~/tracker
 
 
 # Dell drivers
