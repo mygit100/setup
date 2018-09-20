@@ -65,22 +65,10 @@ echo "Installing Cinnamon desktop" >> ~/tracker
 sudo apt-get install cinnamon -y
 echo "   Finished installing Cinnamon desktop" >> ~/tracker
 
-
-# Dell drivers
-echo "Downloading and installing wifi drivers" >> ~/tracker
-wget http://ftp.us.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-iwlwifi_20180825+dfsg-1_all.deb
-
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i firmware-iwlwifi_20180825+dfsg-1_all.deb
-sudo apt-get install -f -y
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i firmware-iwlwifi_20180825+dfsg-1_all.deb
-rm firmware-iwlwifi_20180825+dfsg-1_all.deb
-
-cd ~ && wget -O - "https://wireless.wiki.kernel.org/_media/en/users/drivers/iwlwifi-7265-ucode-25.30.14.0.tgz" | tar xzf -
-
-sudo cp ~/iwlwifi-7265-ucode-25.30.14.0/iwlwifi-7265-14.ucode /lib/firmware
-sudo cp ~/iwlwifi-7265-ucode-25.30.14.0/iwlwifi-7265D-14.ucode /lib/firmware
-
-rm -rf ~/iwlwifi-7265-ucode-25.30.14.0
+# Dell  wireless drivers
+echo "Istalling Dell wifi drivers" >> ~/tracker
+sudo apt-get install firmware-iwlwifi
+# note wireless interface is wlp2s0
 
 echo "Cleaning up" >> ~/tracker
 sudo apt-get -f install &&
