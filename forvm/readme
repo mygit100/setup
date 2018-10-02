@@ -1,0 +1,8 @@
+# copy folder and files to vm with ip address 192.168.122.193
+
+scp -r ~/forvm/ reverset@192.168.122.193:~/forvm
+
+sudo docker-compose up -d --build
+
+
+source: https://perchrunway.com/blog/2017-01-19-getting-started-with-docker-for-local-development
