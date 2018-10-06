@@ -36,7 +36,7 @@ echo "   1. Tmux" >> ~/tracker
 echo "   2. Chromium" >> ~/tracker
 echo "   3. VIM" >> ~/tracker
 echo "   4. SSH" >> ~/tracker
-sudo apt-get install tmux chromium openssh-server vim libcanberra-gtk-module fonts-crosextra-carlito fonts-crosextra-caladea -y
+sudo apt-get install tmux chromium openssh-server vim libcanberra-gtk-module fonts-crosextra-carlito fonts-crosextra-caladea conky -y
 
 echo "   5. Atom Text Editor" >> ~/tracker
 wget https://atom.io/download/deb -O atom.deb
