@@ -1,0 +1,144 @@
+--[[
+	#################################################
+	#
+	#                       #
+	#################################################
+
+	# save as ~/.config/conky/conky.conf	then you can just type conky in terminal to start
+
+	# README
+	# run "ip route" or "nmcli dev status" at command line to identify wired and wireless interfaces
+	# perform a search and replace for:
+	# nmcli dev status | grep -iv 'lo' | grep -iv 'type' |  cut --fields=1,3,5,7 --delimiter=' '
+
+	# wired = eno1
+	# wireless = wlp2s0
+]]
+
+conky.config =
+{
+	background = true,
+	double_buffer = true,
+	no_buffers = true,
+	text_buffer_size = 2048,
+	update_interval = 1,
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+
+	alignment = 'top_right',
+	gap_x = 21,
+	gap_y = 45,
+
+	minimum_width = 280, minimum_height = 500,
+	maximum_width = 300,
+
+	border_inner_margin = 9,
+	border_outer_margin = 1,
+	draw_borders = false,
+	stippled_borders = 0,
+
+	override_utf8_locale = true,
+	use_xft = true,
+	font = 'ubuntu:size=13:oblique',
+	xftalpha = 1,
+	uppercase = false,
+	extra_newline = false,
+	short_units = true,
+	top_name_width = 21,
+	top_name_verbose = false,
+
+	draw_shades = false,
+	default_shade_color = '#000000',
+	draw_outline = false,
+	default_outline_color = '#000000',
+
+	draw_graph_borders = true,
+	default_graph_width = 280, default_graph_height = 40,
+	default_bar_width = 280, default_bar_height = 10,
+
+	own_window = true,
+	own_window_type = 'normal',-- # options are: normal/override/dock/desktop/panel
+	own_window_class = 'Conky',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_argb_value = 210,
+	own_window_transparent = false,
+	own_window_argb_visual = false,
+	own_window_colour = '#34495E',
+
+	default_color = '#00ffff', -- # effects border only
+	color1 = 'cyan',
+	color2 = '#FCA053', -- # bars
+	color3 = 'green',
+	color4 = 'green',
+	color5 = '#fce94f',
+	color6 = '#eeeeec', -- # graph borders
+	color7 = '#ffffff',
+};
+
+conky.text = [[
+# System and OS
+${voffset 5}${color1}OS: ${color7}${execi 10000 lsb_release -d | cut -f 2| tr "[:upper:]" "[:upper:]"}
+${voffset 5}${color1}Kernel: ${color7} $sysname $kernel
+${voffset 0}${color1}Boot time:${color7} ${execi 10000 who -b |awk '{print $3}'}${color1} on ${color7}${execi 10000 who -b |awk '{print $2}'}
+${voffset 0}${color1}Uptime:${color7} $uptime
+
+# CPU Frequency and RAM
+${voffset 5}${color5}CPU Frequency: ${freq_g} GHz ${color2}${hr}
+#
+${voffset 5}${color5}Total RAM: ${memmax} ${color2}${hr}
+${voffset 5}${color1}Used: ${color7}$mem${color1}${alignr}Free: ${color7}$memeasyfree
+${color2}${membar}
+
+# Disk and Drives
+${voffset 5}${color5}Disk Size: ${fs_size} ${color2}${hr}
+${voffset 5}${color1}ROOT: ${color7}${fs_used /}${color1}${alignr}Free: ${color7}${fs_free /}
+${color2}${fs_bar /}
+${voffset 5}${color1}HOME: ${color7}${fs_used /home}${color1}${alignr}Free: ${color7}${fs_free /home}
+${color2}${fs_bar /home}
+#
+# disk graphs
+${color6}${diskiograph_read sda 35,135 34495E ffffff} ${alignr}${diskiograph_write sda 35,135 34495E ffffff}
+${voffset -5}${color1}Reads: ${color7}${diskio_read sda} ${goto 158}${color1}Writes: ${color7}${diskio_write sda}
+
+# Processes
+${voffset 5}${color5}Processes  ${color2}${hr}
+${color1}Name${goto 180}CPU%${alignr}MEM%
+${color4}${top name 1} ${goto 180}${top cpu 1}${alignr}${top mem 1}${color7}
+${top name 2} ${goto 180}${top cpu 2}${alignr}${top mem 2}
+${top name 3} ${goto 180}${top cpu 3}${alignr}${top mem 3}
+${top name 4} ${goto 180}${top cpu 4}${alignr}${top mem 4}
+${top name 5} ${goto 180}${top cpu 5}${alignr}${top mem 5}
+
+${voffset 5}${color5}Memory  ${color2}${hr}
+${color1}Name${goto 180}MEM%${alignr}MEM
+${color4}${top_mem name 1} ${goto 180}${top mem 1}${alignr}${top mem_res 1}${color7}
+${top_mem name 2} ${goto 180}${top mem 2}${alignr}${top mem_res 2}
+${top_mem name 3} ${goto 180}${top mem 3}${alignr}${top mem_res 3}
+${top_mem name 4} ${goto 180}${top mem 4}${alignr}${top mem_res 4}
+${top_mem name 5} ${goto 180}${top mem 5}${alignr}${top mem_res 5}
+${voffset -15}
+
+# Network Connections
+${color5}Network ${color}($nodename) ${color2}${hr}
+${color1}TCP Port Connections: ${color7}${tcp_portmon 1 65535 count}
+#
+${color2}Remote Connection \#1: ${color4}${tcp_portmon 1 1024 rhost 0} ${tcp_portmon 1 1024 lservice 0}
+${color2}Remote Connection \#2: ${color4}${tcp_portmon 1 1024 rhost 1} ${tcp_portmon 1 1024 lservice 1}
+${color2}Remote Connection \#3: ${color4}${tcp_portmon 1 1024 rhost 2} ${tcp_portmon 1 1024 lservice 2}
+
+# Ethernet
+${color1}Ethernet IP address: ${color7}${addr eno1}
+${color1}Download speed: ${color7}${downspeed eno1}
+
+# Wireless
+${color1}Wireless IP address: ${color7}${addr wlp2s0}
+${color1}Wireless signal: ${color7}${wireless_link_qual_perc wlp2s0}%
+${color1}Download speed: ${color7}${downspeed wlp2s0}
+#
+
+
+
+
+#$endif
+
+]]

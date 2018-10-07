@@ -1,0 +1,129 @@
+--[[
+	#################################################
+	#
+	#                       #
+	#################################################
+
+	# save as ~/.config/conky/conky.conf	then you can just type conky in terminal to start
+
+	# README
+	# run "ip route" or "nmcli dev status" at command line to identify wired and wireless interfaces
+	# perform a search and replace for:
+	# nmcli dev status | grep -iv 'lo' | grep -iv 'type' |  cut --fields=1,3,5,7 --delimiter=' '
+
+	# wired = eno1
+	# wireless = wlp2s0
+]]
+
+conky.config = {
+    use_xft = true,
+    xftalpha = 0.8,
+    update_interval = 1.0,
+    total_run_times = 0,
+    own_window = true,
+    own_window_transparent = true,
+    own_window_argb_visual = true,
+    own_window_type = 'normal',
+    own_window_class = 'conky-semi',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    background = false,
+    double_buffer = true,
+    imlib_cache_size = 0,
+    no_buffers = true,
+    uppercase = false,
+    cpu_avg_samples = 2,
+    override_utf8_locale = true,
+
+    -- placement
+    alignment = 'top_left',
+		gap_x = 5,
+		gap_y = 45,
+
+    -- default drawing
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = true,
+    default_bar_width = 150, default_bar_height = 5,
+    default_graph_width = 150, default_graph_height = 12,
+    default_gauge_width = 20, default_gauge_height = 20,
+
+    -- colors
+     font = 'Liberation Sans:bold:size=13',
+
+--		font = 'ubuntu:size=13',
+		xftalpha = 1,
+    default_color = 'EEEEEE',
+    color1 = 'AABBFF',
+    color2 = 'FF993D',
+    color3 = 'AAAAAA',
+
+    -- layouting
+    template0 = [[${font Liberation Sans:bold:size=13}${color2}\1 ${color3}${hr 2}${font}]],
+    template1 = [[${color1}\1]],
+    template2 = [[${goto 100}${color}]],
+    template3 = [[${goto 180}${color}${alignr}]],
+};
+
+conky.text = [[
+${template0 Info}
+${template1 Date}                                             						${template3}${color3}${time %a,}${color}${time %e %B %G}
+${template1 Time}                                             						${template3}${time %T}
+${template0 System}
+${template1 Hostname}                                         						${template3}${nodename}
+${template1 OS}                                               						${template3}${execi 10000 lsb_release -d | cut -f 2| tr "[:upper:]" "[:upper:]"}
+${template1 ${sysname}}                                      							${template3}${kernel}-${machine}
+${template1 Boot\ Time}                                      							${template3}${execi 10000 who -b |awk '{print $3}'}
+${template1 Uptime}                                          							${template3}${uptime_short}
+${template1 CPU}                                            							${template3}${freq_g}GHz
+${template1 CPU\ Temperature}                                							${template3}${acpitemp}°C
+${template1 HDD\ Temperature}                                						  ${template3}${hddtemp /dev/sda}°C
+
+${template0 Processors}
+${template1 Load}            ${template2}${loadavg 1}    							    ${template3}${loadgraph}
+${template1 Core\ 1}         ${template2}${cpu cpu1}%       						  ${template3}${cpubar cpu1}
+${template1 Core\ 2}         ${template2}${cpu cpu2}%   					        ${template3}${cpubar cpu2}
+${template1 Core\ 3}         ${template2}${cpu cpu3}%     						    ${template3}${cpubar cpu3}
+${template1 Core\ 4}         ${template2}${cpu cpu4}%   						      ${template3}${cpubar cpu4}
+${template1 Top}             ${template2}${top name 1} 						        ${template3}${top cpu 1}
+
+${template0 Memory}
+${template1 Memory}          ${template2}${memperc}% used  						    ${template3}${mem} / ${memmax}
+                                                             					    ${template3}${membar}
+${template1 Top}             ${template2}${top_mem name 1} 					      ${template3}${top_mem mem_vsize 1}
+
+${template0 Filesystem}
+${template1 /}               ${template2}${fs_free /} free  				      ${template3}${fs_used /} / ${fs_size /}
+                                                              					  ${template3}${fs_bar /}
+${template1 IO\ Read}        ${template2}${diskio_read}       				    ${template3}${diskiograph_read}
+${template1 IO\ Write}       ${template2}$diskio_write       					    ${template3}$diskiograph_write
+${template1 Top}             ${template2}${top_io name 1}     						${template3}${top_io io_perc 1}%
+
+${font Liberation Sans:bold:size=13}${color2}TCP Port Connections --> ${tcp_portmon 1 65535 count} ${color3}${hr 2}
+${template1 Remote\ Connection\ 1}   				${template3}${tcp_portmon 1 1024 rhost 0}  ${tcp_portmon 1 1024 lservice 0}
+${template1 Remote\ Connection\ 2}   				${template3}${tcp_portmon 1 1024 rhost 1}  ${tcp_portmon 1 1024 lservice 1}
+${template1 Remote\ Connection\ 3}   				${template3}${tcp_portmon 1 1024 rhost 2}  ${tcp_portmon 1 1024 lservice 2}
+#
+#${template1 Remote\ Connection\ 1}   				${template3}${tcp_portmon 1 65000 rhost 0}   ${tcp_portmon 1 65000 lservice 0}
+#${template1 Remote\ Connection\ 2}   				${template3}${tcp_portmon 1 65000 rhost 1}   ${tcp_portmon 1 65000 lservice 1}
+#${template1 Remote\ Connection\ 3}   				${template3}${tcp_portmon 1 65000 rhost 2}   ${tcp_portmon 1 65000 lservice 2}
+#${template1 Remote\ Connection\ 4}   				${template3}${tcp_portmon 1 65000 rhost 3}   ${tcp_portmon 1 65000 lservice 3}
+#
+
+${template0 Networking}
+${if_existing /proc/net/route wlp2s0}\
+${template1 IP}                                                            ${template3}${addr wlp2s0}
+${template1 AP}                                                            ${template3}${wireless_essid wlp2s0}
+${template1 Signal}          ${template2}${wireless_link_qual_perc wlp2s0} ${template3}${wireless_link_bar wlp2s0}
+${template1 Download}        ${template2}${downspeed wlp2s0}               ${template3}${downspeedgraph wlp2s0}
+${template1 Upload}          ${template2}${upspeed wlp2s0}                 ${template3}${upspeedgraph wlp2s0}
+${template1 Total Down/Up}                                                 ${template3}${totaldown wlp2s0}↓ / {totalup wlp2s0}↑
+${else}${if_existing /proc/net/route eno1}\
+${template1 Ip}                                               						 ${template3}${addr eno1}
+${template1 Download}        ${template2}${downspeed eno1}							   ${template3}${downspeedgraph eno1}
+${template1 Upload}          ${template2}${upspeed eno1}    							 ${template3}${upspeedgraph eno1}
+${template1 Total Down/Up}                                   							 ${template3}${totaldown eno1}↓ / ${totalup eno1}↑
+${endif}${endif}\
+
+
+]];
