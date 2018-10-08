@@ -59,8 +59,10 @@ echo "Name=Conky" >> ~/.config/autostart/conky.desktop
 echo "Comment=Autostart conky at login" >> ~/.config/autostart/conky.desktop
 
 # Start conky
-echo "      Starting Conky" >> ~/tracker
-conky
+echo "       The interface needs to be set in conky" >> ~/tracker
+echo "       Run -- nmcli dev status" >> ~/tracker
+echo "       For ethernet, run -- sed -i 's/eno1/xyz_interface/g' ~/.config/conky/conky.conf" >> ~/tracker
+echo "       For ethernet, wireless -- sed -i 's/wlp2s0/xyz_interface/g' ~/.config/conky/conky.conf" >> ~/tracker
 
 echo "   6. Atom Text Editor" >> ~/tracker
 wget https://atom.io/download/deb -O atom.deb
@@ -113,3 +115,5 @@ sudo adduser reverset libvirt-qemu
 
 newgrp libvirt
 newgrp libvirt-qemu
+
+conky

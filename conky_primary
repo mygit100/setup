@@ -49,7 +49,7 @@ conky.config = {
     default_gauge_width = 20, default_gauge_height = 20,
 
     -- colors
-     font = 'Liberation Sans:bold:size=13',
+     font = 'Liberation Sans:bold:size=12',
 
 --		font = 'ubuntu:size=13',
 		xftalpha = 1,
@@ -59,17 +59,17 @@ conky.config = {
     color3 = 'AAAAAA',
 
     -- layouting
-    template0 = [[${font Liberation Sans:bold:size=13}${color2}\1 ${color3}${hr 2}${font}]],
+    template0 = [[${font Liberation Sans:bold:size=12}${color2}\1 ${color3}${hr 2}${font}]],
     template1 = [[${color1}\1]],
     template2 = [[${goto 100}${color}]],
     template3 = [[${goto 200}${color}${alignr}]],
 };
 
 conky.text = [[
-${template0 Info}
-${template1 Date}                                             						${template3}${color3}${time %a,}${color}${time %e %B %G}
-${template1 Time}                                             						${template3}${time %T}
-
+#${template0 Info}
+#${template1 Date}                                             						${template3}${color3}${time %a,}${color}${time %e %B %G}
+#${template1 Time}                                             						${template3}${time %T}
+#
 ${template0 System}
 ${template1 Hostname}                                         						${template3}${nodename}
 ${template1 OS}                                               						${template3}${execi 10000 lsb_release -d | cut -f 2| tr "[:upper:]" "[:upper:]"}
@@ -78,7 +78,7 @@ ${template1 Boot\ Time}                                      							${template3}
 ${template1 Uptime}                                          							${template3}${uptime_short}
 ${template1 CPU}                                            							${template3}${freq_g}GHz
 ${template1 CPU\ Temperature}                                							${template3}${acpitemp}°C
-${template1 HDD\ Temperature}                                						  ${template3}${hddtemp /dev/sda}°C
+#${template1 HDD\ Temperature}                                						  ${template3}${hddtemp /dev/sda}°C
 
 ${template0 Processors}
 ${template1 Load}            ${template2}${loadavg 1}    							    ${template3}${loadgraph}
