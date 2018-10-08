@@ -21,9 +21,6 @@ xterm -e bash -c 'watch -n 0.1 cat ~/tracker' &
 echo "Use this window to track script status" > ~/tracker
 echo "" >> ~/tracker
 
-echo "Adding non-free to sources.list" >> ~/tracker
-sudo sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list
-
 echo "Updating" >> ~/tracker
 sudo apt-get update
 
@@ -31,26 +28,53 @@ echo "Locating the fastest Debian download site" >> ~/tracker
 sudo apt-get install netselect-apt -y
 sudo netselect-apt
 
+echo "Updating sources.list" >> ~/tracker
+sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
+sudo mv sources.list /etc/apt/sources.list
+
+echo "Updating" >> ~/tracker
+sudo apt-get update
+
+echo "Adding non-free to sources.list" >> ~/tracker
+sudo sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list
+
 echo "Installing my base applications" >> ~/tracker
 echo "   1. Tmux" >> ~/tracker
 echo "   2. Chromium" >> ~/tracker
 echo "   3. VIM" >> ~/tracker
 echo "   4. SSH" >> ~/tracker
+echo "   5. Conky" >> ~/tracker
 sudo apt-get install tmux chromium openssh-server vim libcanberra-gtk-module fonts-crosextra-carlito fonts-crosextra-caladea conky -y
 
-echo "   5. Atom Text Editor" >> ~/tracker
+wget https://raw.githubusercontent.com/mygit100/setup/master/conky_primary
+
+mkdir ~/.config/conky
+cp conky_primary ~/.config/conky/conky.conf
+rm conky_primary
+
+echo "[Desktop Entry]" > ~/.config/autostart/conky.desktop
+echo "Type=Application" >> ~/.config/autostart/conky.desktop
+echo "Exec=sh -c \"sleep 10; conky\"" >> ~/.config/autostart/conky.desktop
+echo "Name=Conky" >> ~/.config/autostart/conky.desktop
+echo "Comment=Autostart conky at login" >> ~/.config/autostart/conky.desktop
+
+# Start conky
+echo "      Starting Conky" >> ~/tracker
+conky
+
+echo "   6. Atom Text Editor" >> ~/tracker
 wget https://atom.io/download/deb -O atom.deb
 DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb
 sudo apt-get install -f -y
 DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb
 rm atom.deb
 
-echo "   6. Dropbox" >> ~/tracker
+echo "   7. Dropbox" >> ~/tracker
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 echo "       To launch Dropbox, in a terminal window" >> ~/tracker
 echo "       type --> ~/.dropbox-dist/dropboxd" >> ~/tracker
 
-echo "   7. Rescuetime" >> ~/tracker
+echo "   8. Rescuetime" >> ~/tracker
 wget "https://www.rescuetime.com/installers/rescuetime_current_amd64.deb"
 DEBIAN_FRONTEND=noninteractive sudo dpkg -i rescuetime_current_amd64.deb
 sudo apt-get install -f -y
