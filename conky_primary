@@ -83,14 +83,14 @@ ${template1 HDD\ Temperature}                                						  ${template3
 ${template0 Processors}
 ${template1 Load}            ${template2}${loadavg 1}    							    ${template3}${loadgraph}
 ${template1 Core\ 1}         ${template2}${cpu cpu1}%       						  ${template3}${cpubar cpu1}
-${template1 Core\ 2}         ${template2}${cpu cpu2}%   					        ${template3}${cpubar cpu2}
-${template1 Core\ 3}         ${template2}${cpu cpu3}%     						    ${template3}${cpubar cpu3}
-${template1 Core\ 4}         ${template2}${cpu cpu4}%   						      ${template3}${cpubar cpu4}
+#${template1 Core\ 2}         ${template2}${cpu cpu2}%   					        ${template3}${cpubar cpu2}
+#${template1 Core\ 3}         ${template2}${cpu cpu3}%     						    ${template3}${cpubar cpu3}
+#${template1 Core\ 4}         ${template2}${cpu cpu4}%   						      ${template3}${cpubar cpu4}
 
 ${color1}Top Process${goto 200}CPU%${alignr}MEM%
 ${color4}${top name 1} ${goto 200}${top cpu 1}${alignr}${top mem 1}${color7}
 ${top name 2} ${goto 200}${top cpu 2}${alignr}${top mem 2}
-${top name 3} ${goto 200}${top cpu 3}${alignr}${top mem 3}
+#${top name 3} ${goto 200}${top cpu 3}${alignr}${top mem 3}
 
 ${template0 Memory}
 ${template1 Memory}          ${template2}${memperc}% used  						    ${template3}${mem} / ${memmax}
@@ -99,7 +99,7 @@ ${template1 Memory}          ${template2}${memperc}% used  						    ${template3
 ${color1}Top Memory${goto 200}MEM%${alignr}MEM
 ${color4}${top_mem name 1} ${goto 200}${top mem 1}${alignr}${top mem_res 1}${color7}
 ${top_mem name 2} ${goto 200}${top mem 2}${alignr}${top mem_res 2}
-${top_mem name 3} ${goto 200}${top mem 3}${alignr}${top mem_res 3}
+#${top_mem name 3} ${goto 200}${top mem 3}${alignr}${top mem_res 3}
 
 ${template0 Filesystem}
 ${template1 /}               ${template2}${fs_free /} free  				      ${template3}${fs_used /} / ${fs_size /}
@@ -110,8 +110,8 @@ ${template1 Top}             ${template2}${top_io name 1}     						${template3}
 
 ${font Liberation Sans:bold:size=13}${color2}TCP Port Connections --> ${tcp_portmon 1 65535 count} ${color3}${hr 2}
 ${template1 Remote\ Connection\ 1}   				${template3}${tcp_portmon 1 1024 rhost 0}  ${tcp_portmon 1 1024 lservice 0}
-${template1 Remote\ Connection\ 2}   				${template3}${tcp_portmon 1 1024 rhost 1}  ${tcp_portmon 1 1024 lservice 1}
-${template1 Remote\ Connection\ 3}   				${template3}${tcp_portmon 1 1024 rhost 2}  ${tcp_portmon 1 1024 lservice 2}
+#${template1 Remote\ Connection\ 2}   				${template3}${tcp_portmon 1 1024 rhost 1}  ${tcp_portmon 1 1024 lservice 1}
+#${template1 Remote\ Connection\ 3}   				${template3}${tcp_portmon 1 1024 rhost 2}  ${tcp_portmon 1 1024 lservice 2}
 #
 #${template1 Remote\ Connection\ 1}   				${template3}${tcp_portmon 1 65000 rhost 0}   ${tcp_portmon 1 65000 lservice 0}
 #${template1 Remote\ Connection\ 2}   				${template3}${tcp_portmon 1 65000 rhost 1}   ${tcp_portmon 1 65000 lservice 1}
