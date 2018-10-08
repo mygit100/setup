@@ -62,13 +62,14 @@ conky.config = {
     template0 = [[${font Liberation Sans:bold:size=13}${color2}\1 ${color3}${hr 2}${font}]],
     template1 = [[${color1}\1]],
     template2 = [[${goto 100}${color}]],
-    template3 = [[${goto 180}${color}${alignr}]],
+    template3 = [[${goto 200}${color}${alignr}]],
 };
 
 conky.text = [[
 ${template0 Info}
 ${template1 Date}                                             						${template3}${color3}${time %a,}${color}${time %e %B %G}
 ${template1 Time}                                             						${template3}${time %T}
+
 ${template0 System}
 ${template1 Hostname}                                         						${template3}${nodename}
 ${template1 OS}                                               						${template3}${execi 10000 lsb_release -d | cut -f 2| tr "[:upper:]" "[:upper:]"}
@@ -85,12 +86,20 @@ ${template1 Core\ 1}         ${template2}${cpu cpu1}%       						  ${template3}
 ${template1 Core\ 2}         ${template2}${cpu cpu2}%   					        ${template3}${cpubar cpu2}
 ${template1 Core\ 3}         ${template2}${cpu cpu3}%     						    ${template3}${cpubar cpu3}
 ${template1 Core\ 4}         ${template2}${cpu cpu4}%   						      ${template3}${cpubar cpu4}
-${template1 Top}             ${template2}${top name 1} 						        ${template3}${top cpu 1}
+
+${color1}Top Process${goto 200}CPU%${alignr}MEM%
+${color4}${top name 1} ${goto 200}${top cpu 1}${alignr}${top mem 1}${color7}
+${top name 2} ${goto 200}${top cpu 2}${alignr}${top mem 2}
+${top name 3} ${goto 200}${top cpu 3}${alignr}${top mem 3}
 
 ${template0 Memory}
 ${template1 Memory}          ${template2}${memperc}% used  						    ${template3}${mem} / ${memmax}
                                                              					    ${template3}${membar}
-${template1 Top}             ${template2}${top_mem name 1} 					      ${template3}${top_mem mem_vsize 1}
+
+${color1}Top Memory${goto 200}MEM%${alignr}MEM
+${color4}${top_mem name 1} ${goto 200}${top mem 1}${alignr}${top mem_res 1}${color7}
+${top_mem name 2} ${goto 200}${top mem 2}${alignr}${top mem_res 2}
+${top_mem name 3} ${goto 200}${top mem 3}${alignr}${top mem_res 3}
 
 ${template0 Filesystem}
 ${template1 /}               ${template2}${fs_free /} free  				      ${template3}${fs_used /} / ${fs_size /}
@@ -117,7 +126,7 @@ ${template1 AP}                                                            ${tem
 ${template1 Signal}          ${template2}${wireless_link_qual_perc wlp2s0} ${template3}${wireless_link_bar wlp2s0}
 ${template1 Download}        ${template2}${downspeed wlp2s0}               ${template3}${downspeedgraph wlp2s0}
 ${template1 Upload}          ${template2}${upspeed wlp2s0}                 ${template3}${upspeedgraph wlp2s0}
-${template1 Total Down/Up}                                                 ${template3}${totaldown wlp2s0}↓ / {totalup wlp2s0}↑
+${template1 Total Down/Up}                                                 ${template3}${totaldown wlp2s0}↓ / ${totalup wlp2s0}↑
 ${else}${if_existing /proc/net/route eno1}\
 ${template1 Ip}                                               						 ${template3}${addr eno1}
 ${template1 Download}        ${template2}${downspeed eno1}							   ${template3}${downspeedgraph eno1}
