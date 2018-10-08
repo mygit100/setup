@@ -10,7 +10,7 @@
 # echo "<username> ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # Git debian setup script
-# wget https://raw.githubusercontent.com/mygit100/setup/master/debian-install.sh
+# wget https://raw.githubusercontent.com/mygit100/setup/conky/debian-install.sh
 
 sudo apt-get install xterm
 
@@ -46,7 +46,7 @@ echo "   4. SSH" >> ~/tracker
 echo "   5. Conky" >> ~/tracker
 sudo apt-get install tmux chromium openssh-server vim libcanberra-gtk-module fonts-crosextra-carlito fonts-crosextra-caladea conky -y
 
-wget https://raw.githubusercontent.com/mygit100/setup/master/conky_primary
+wget https://raw.githubusercontent.com/mygit100/setup/conky/conky_primary
 
 mkdir ~/.config/conky
 cp conky_primary ~/.config/conky/conky.conf
