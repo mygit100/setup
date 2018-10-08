@@ -84,13 +84,14 @@ rm rescuetime_current_amd64.deb
 echo "       To launch RescueTime, in a terminal window" >> ~/tracker
 echo "       type --> rescuetime" >> ~/tracker
 
+echo "   9. Firejail and Firetools" >> ~/tracker
 # Install preferred desktop environment
 echo "Installing Cinnamon desktop" >> ~/tracker
-sudo apt-get install cinnamon -y
+sudo apt-get install firejail firetools cinnamon -y
 echo "   Finished installing Cinnamon desktop" >> ~/tracker
 
 # Dell  wireless drivers
-echo "Istalling Dell wifi drivers" >> ~/tracker
+echo "Installing Dell wifi drivers" >> ~/tracker
 sudo apt-get install firmware-iwlwifi
 # note wireless interface is wlp2s0
 
