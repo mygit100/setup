@@ -24,17 +24,6 @@ echo "" >> ~/tracker
 echo "Updating" >> ~/tracker
 sudo apt-get update
 
-echo "Locating the fastest Debian download site" >> ~/tracker
-sudo apt-get install netselect-apt -y
-sudo netselect-apt
-
-echo "Updating sources.list" >> ~/tracker
-sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
-sudo mv sources.list /etc/apt/sources.list
-
-echo "Updating" >> ~/tracker
-sudo apt-get update
-
 echo "Adding non-free to sources.list" >> ~/tracker
 sudo sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list
 
@@ -65,28 +54,6 @@ echo "       Run -- nmcli dev status" >> ~/tracker
 echo "       For ethernet, run -- sed -i 's/eno1/xyz_interface/g' ~/.config/conky/conky.conf" >> ~/tracker
 echo "       For ethernet, wireless -- sed -i 's/wlp2s0/xyz_interface/g' ~/.config/conky/conky.conf" >> ~/tracker
 
-echo "   6. Atom Text Editor" >> ~/tracker
-wget https://atom.io/download/deb -O atom.deb
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb
-sudo apt-get install -f -y
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb
-rm atom.deb
-
-echo "   7. Dropbox" >> ~/tracker
-cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-echo "       To launch Dropbox, in a terminal window" >> ~/tracker
-echo "       type --> ~/.dropbox-dist/dropboxd" >> ~/tracker
-
-echo "   8. Rescuetime" >> ~/tracker
-wget "https://www.rescuetime.com/installers/rescuetime_current_amd64.deb"
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i rescuetime_current_amd64.deb
-sudo apt-get install -f -y
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i rescuetime_current_amd64.deb
-rm rescuetime_current_amd64.deb
-
-echo "       To launch RescueTime, in a terminal window" >> ~/tracker
-echo "       type --> rescuetime" >> ~/tracker
-
 echo "   9. Firejail and Firetools" >> ~/tracker
 # Install preferred desktop environment
 echo "Installing Cinnamon desktop" >> ~/tracker
@@ -109,7 +76,7 @@ echo "VM Adduser" >> ~/tracker
 sudo adduser reverset libvirt
 sudo adduser reverset libvirt-qemu
 
-echo "VM Create new group" >> ~/tracker
+echo "VM - Create new group" >> ~/tracker
 nohup newgrp libvirt &
 nohup newgrp libvirt-qemu &
 nohup conky &
