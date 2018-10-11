@@ -1,0 +1,103 @@
+# conky configuration
+#
+# The list of variables has been removed from this file in favour
+# of keeping the documentation more maintainable.
+# Check http://conky.sf.net for an up-to-date-list.
+#
+# For ideas about how to modify conky, please see:
+# http://crunchbanglinux.org/forums/topic/59/my-conky-config/
+#
+# For help with conky, please see:
+# http://crunchbanglinux.org/forums/topic/2047/conky-help/
+#
+# Enjoy! :)
+
+##############################################
+# Settings
+##############################################
+background yes
+use_xft yes
+xftfont terminus:size=16
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+draw_borders no
+#own_window_argb_visual yes
+#own_window_type desktop
+#own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window yes
+#own_window_transparent yes
+#own_window_class conky-semi
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,skip_taskbar,skip_pager,sticky
+own_window_colour 000000
+own_window_class Conky
+double_buffer yes
+minimum_size 260 260
+maximum_width 260
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color 4c4c4c
+default_shade_color black
+default_outline_color 4c4c4c
+alignment top_right
+gap_x 05	
+gap_y 85
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale yes
+TEXT
+${color 4c4c4c}${hr}
+${color 5c5c5c}${font terminus:normal:size=9}BL $kernel $alignr $machine
+${color 4c4c4c}${font terminus:normal:size=8}Host:$alignr$nodename
+${color 4c4c4c}${font terminus:normal:size=8}Uptime:$alignr$uptime
+${color 4c4c4c}${font terminus:normal:size=8}File System: $alignr${fs_type}
+
+${color 4c4c4c}${font terminus:normal:size=9}Cpu: Amd AM3 / FX 8320 8 core 
+${color 4c4c4c}${font terminus:normal:size=9}Mobo: Asus M5A97 / r2.0
+${color 4c4c4c}${font terminus:normal:size=9}Graphics: Asus Amd / Ati-Radeon  HD 7770
+${color 4c4c4c}${font terminus:normal:size=9}Audio: Asus Xonar DS pci 7.1 (oxygen HD-CMI8788)
+${color 4c4c4c}${font terminus:normal:size=9}Keybd: Razer Blk Widow Ult 2014
+
+${color 4c4c4c}${font terminus:normal:size=8}Cpu Avg Percent Total: ${color 4c4c4c}${cpu cpu0} % 
+${color 4c4c4c}${cpugraph 25 ff0000 0000ff}
+${color 4c4c4c}${font terminus:normal:size=8}${color 4c4c4c}CPU TEMP: ${color 5c5c5c}${exec sensors | grep -n 'temp1' | sed -n 2p | awk -F'+' '{print $2}' | awk -F' ' '{print $1}'} 
+${color 4c4c4c}${font terminus:normal:size=8}PROCESSORS ${hr}${font}${color 4c4c4c}
+Core1: ${cpu cpu1}% $alignr ${exec awk '/cpu MHz/{i++}i==1{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu1 6,150}
+Core2: ${cpu cpu2}% $alignr ${exec awk '/cpu MHz/{i++}i==2{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu2 6,150}
+Core3: ${cpu cpu3}% $alignr ${exec awk '/cpu MHz/{i++}i==3{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu3 6,150}
+Core4: ${cpu cpu4}% $alignr ${exec awk '/cpu MHz/{i++}i==4{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu4 6,150}
+Core5: ${cpu cpu5}% $alignr ${exec awk '/cpu MHz/{i++}i==5{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu5 6,150}
+Core6: ${cpu cpu6}% $alignr ${exec awk '/cpu MHz/{i++}i==6{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu6 6,150}
+Core7: ${cpu cpu7}% $alignr ${exec awk '/cpu MHz/{i++}i==7{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu7 6,150}
+Core8: ${cpu cpu8}% $alignr ${exec awk '/cpu MHz/{i++}i==8{printf "%.f",$4; exit}' /proc/cpuinfo} MHz $alignc ${cpubar cpu8 6,150}
+
+${color 4c4c4c}${font terminus:normal:size=9}MEMORY 
+${color 4c4c4c}${font terminus:normal:size=8}RAM ${color 4c4c4c}$alignc $mem / $memmax $alignr $memperc %
+${color 4c4c4c}${font terminus:normal:size=8}$membar
+
+${color 4c4c4c}${font terminus:normal:size=9}HDD P4 1TB ${color 5c5c5c}BL 4.2 / fluxbox  
+${color 4c4c4c}${font terminus:normal:size=8}HDD TEMP P4: ${color 5c5c5c}${hddtemp /dev/sde} P0°C${hddtemp /dev/sda} P1°C${hddtemp /dev/sdb} P2°C${hddtemp /dev/sdc} P3°C${hddtemp /dev/sdd}°C
+${color 4c4c4c}${font terminus:normal:size=8}/home $alignc ${fs_used /home} / ${fs_size /home} $alignr ${fs_used_perc /home}%
+${color 4c4c4c}${fs_bar /home}
+${color 4c4c4c}${font terminus:normal:size=8}/ $alignc ${fs_used /} / ${fs_size /} $alignr ${fs_used_perc /}%
+${color 4c4c4c}${fs_bar /}
+${color 4c4c4c}SWAP $alignc ${swap} / ${swapmax} $alignr ${swapperc}%
+${color 4c4c4c}${swapbar}
+
+${color 4c4c4c}${font terminus:normal:size=8}TOP PROCESSES 
+${color 4c4c4c}${font terminus:normal:size=8}${top_mem name 1}${color 4c4c4c}${alignr}${top mem 1} %
+${color 4c4c4c}${font terminus:normal:size=8}${top_mem name 2}${color 4c4c4c}${alignr}${top mem 2} %
+${color 4c4c4c}${font terminus:normal:size=8}${top_mem name 3}${color 4c4c4c}${alignr}${top mem 3} %
+${color 4c4c4c}${font terminus:normal:size=8}${top_mem name 4}${color 4c4c4c}${alignr}${top mem 4} %
+${color 4c4c4c}${font terminus:normal:size=8}${top_mem name 5}${color 4c4c4c}${alignr}${top mem 5} %
+
+${color 4c4c4c}${font terminus:normal:size=8}NETWORK-eth0-
+${color 4c4c4c}DOWN: ${color 4c4c4c}${downspeed eth0} k/s	         ${color 4c4c4c}   UP:${color 4c4c4c}${upspeed eth0} k/s
+${color 4c4c4c}${downspeedgraph eth0 20,145 ff0000 0000ff}	  ${color 4c4c4c}${upspeedgraph eth0 20,140 0000ff ff0000}
+${color 4c4c4c}TOTAL: ${color 4c4c4c}${totaldown eth0}	         ${color 4c4c4c}   TOTAL:${color 4c4c4c}${totalup eth0}

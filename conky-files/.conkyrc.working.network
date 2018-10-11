@@ -1,0 +1,93 @@
+
+
+# Default Fonts
+use_xft yes
+xftfont Ubuntu:size=10
+override_utf8_locale yes
+
+# Performance Settings
+update_interval 1
+total_run_times 0
+double_buffer yes
+no_buffers yes
+net_avg_samples 2
+text_buffer_size 1024
+
+# Window Settings
+own_window yes
+own_window_transparent yes
+own_window_type override
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Window border
+draw_borders no
+draw_shades no
+
+# Default Color
+default_color E0DFDE
+
+# Color Title.
+color0 DD3A21
+
+# Size and position
+minimum_size 245 735
+gap_x 1
+gap_y 24
+alignment top_right
+
+short_units
+if_up_strictness link
+
+TEXT
+${image ~/.ConkyWizardTheme/pix/background.png -p 0,0 -s 245x735}
+
+
+${GOTO 36}Host:${GOTO 100}${nodename}   ($machine)
+${GOTO 36}Kernel:${GOTO 100}${kernel}
+{GOTO 36}Battery:${GOTO 100}${battery BAT0} ${battery_time BAT0}
+${GOTO 36}$hr
+${GOTO 36}${font Ubuntu:bold:size=15}${color6}CPU${font}${color}${GOTO 150}${running_processes}/${processes} Procs
+${GOTO 36}CPU 0: ${GOTO 80} ${cpu cpu1}%  ${GOTO 160}${freq_g 1} GHz
+${GOTO 60}${cpugraph cpu1 20,170 104E8B ff0000 -t}
+${GOTO 36}CPU 1: ${GOTO 80} ${cpu cpu2}%  ${GOTO 160}${freq_g 2} GHz
+${GOTO 60}${cpugraph cpu2 20,170 104E8B ff0000 -t}
+${GOTO 36}$hr
+${GOTO 36}${font Ubuntu:bold:size=9}${color0}Memory${font}${color}
+${GOTO 36}RAM: ${GOTO 120}$mem / $memmax
+${GOTO 60}${membar 10,140} ${memperc}%
+${GOTO 36}SWAP:${GOTO 120}${swapbar 10,80} ${swapperc}%
+${GOTO 36}$hr
+${GOTO 36}${font Ubuntu:bold:size=9}${color0}Disks${font}${color}
+${GOTO 36}I/O read:${GOTO 90}${diskiograph_read 20,150 008e00 ffb200 -t}
+${GOTO 36}${voffset -20}${diskio_read}
+${GOTO 36}I/O write:${GOTO 90}${diskiograph_write 20,150 008e00 ffb200 -t}
+${GOTO 36}${voffset -20}${diskio_write}
+
+${GOTO 36}root (/):${GOTO 120}${fs_used /} / ${fs_size /}
+${GOTO 36}${GOTO 60}${fs_bar 10,140 /} ${fs_used_perc /}%
+${GOTO 36}Sistema:${GOTO 120}${fs_used /media/win7} / ${fs_size /media/win7}
+${GOTO 36}${GOTO 60}${fs_bar 10,140 /media/win7} ${fs_used_perc /media/win7}%
+${GOTO 36}Datos:${GOTO 120}${fs_used /media/datos} / ${fs_size /media/datos}
+${GOTO 36}${GOTO 60}${fs_bar 10,140 /media/datos} ${fs_used_perc /media/datos}%
+${GOTO 36}$hr
+${GOTO 36}${font Ubuntu:bold:size=9}${color0}Network${font}${color}${if_gw}${GOTO 130}GW: ${gw_ip}${endif}
+${if_up eth0}${GOTO 36}eth0:${GOTO 120}${addr eth0}
+${GOTO 36}Up (${upspeedf eth0}):${GOTO 120}${upspeedgraph eth0 15,110 330099 cc0099 -t}
+${GOTO 36}Down (${downspeedf eth0}):${GOTO 120}${downspeedgraph eth0 15,110 330099 cc0099 -t}${endif}
+${if_up wlan0}${GOTO 36}wlan0:${GOTO 120}${addr wlan0}
+${GOTO 60}$wireless_essid   $wireless_bitrate
+${GOTO 60}${wireless_link_bar 10,140} $wireless_link_qual_perc %
+${GOTO 36}Up (${upspeedf wlan0}):${GOTO 120}${upspeedgraph wlan0 15,110 330099 cc0099 -t}
+${GOTO 36}Down (${downspeedf wlan0}):${GOTO 120}${downspeedgraph wlan0 15,110 330099 cc0099 -t}${endif}
+${if_up ppp0}${GOTO 36}ppp0:${GOTO 120}${addr ppp0}
+${GOTO 36}Up (${upspeedf ppp0}):${GOTO 120}${upspeedgraph ppp0 15,110 330099 cc0099 -t}
+${GOTO 36}Down (${downspeedf ppp0}):${GOTO 120}${downspeedgraph ppp0 15,110 330099 cc0099 -t}
+${GOTO 36}Total Up: ${totalup ppp0}  Total Down: ${totaldown ppp0}${endif}
+${GOTO 36}$hr
+${GOTO 36}${font Ubuntu:bold:size=9}${color0}Connections${font}${color}
+${GOTO 36}sshd: ${tcp_portmon 22 22 count}${GOTO 120}portmap: ${tcp_portmon 111 111 count}
+${GOTO 36}$hr
+${GOTO 80}${font Ubuntu:bold:size=9}${color0}Temperatures${font}${color}
+${GOTO 80}Core1:${GOTO 150}${hwmon 1 temp 1} ºC
+${GOTO 80}Core2:${GOTO 150}${hwmon 2 temp 1} ºC
+${GOTO 80}Hard disk:${GOTO 150}${hddtemp /dev/sda} ºC
