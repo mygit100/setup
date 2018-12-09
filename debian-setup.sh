@@ -106,8 +106,8 @@ echo "Installing Virtual Manager" >> ~/tracker
 sudo apt-get install virt-manager -y
 
 echo "VM Adduser" >> ~/tracker
-sudo adduser reverset libvirt
-sudo adduser reverset libvirt-qemu
+sudo adduser <username> libvirt
+sudo adduser <username> libvirt-qemu
 
 echo "VM Create new group" >> ~/tracker
 nohup newgrp libvirt &

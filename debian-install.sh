@@ -1,121 +1,100 @@
-#!/bin/bash
+#!/bin/bash 
 
-# su root
-# apt install git sudo -y
+# This script works on Debian 9 "Stretch" 
 
-# Add to sudo group
-# usermod -a -G sudo <username>
+# Set variables 
+Myuser=<username> 
+mylogfile=tracker 
 
-# or
-# echo "<username> ALL=(ALL:ALL) ALL" >> /etc/sudoers
+su root 
+apt install git sudo -y 
 
-# Git debian setup script
-# wget https://raw.githubusercontent.com/mygit100/setup/conky/debian-install.sh
+# Add to sudo group 
+# usermod -a -G sudo $Myuser 
 
-sudo apt-get install xterm
+# or 
+echo "$Myuser ALL=(ALL:ALL) ALL" >> /etc/sudoers 
 
-# Launch a separate terminal to track script
-touch ~/tracker
-xterm -e bash -c 'watch -n 0.1 cat ~/tracker' &
+# Git debian setup script 
+# wget https://raw.githubusercontent.com/mygit100/setup/master/debian-install.sh 
 
-echo "Use this window to track script status" > ~/tracker
-echo "" >> ~/tracker
+sudo apt-get install xterm 
 
-echo "Updating" >> ~/tracker
-sudo apt-get update
+# Launch a separate terminal to track script 
+touch ~/$mylogfile 
+xterm -e bash -c 'watch -n 0.1 cat ~/$mylogfile' & 
 
-echo "Locating the fastest Debian download site" >> ~/tracker
-sudo apt-get install netselect-apt -y
-sudo netselect-apt
+echo "Use this window to track script status" > ~/$mylogfile 
+echo "" >> ~/$mylogfile 
 
-echo "Updating sources.list" >> ~/tracker
-sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
-sudo mv sources.list /etc/apt/sources.list
+echo "Adding non-free to sources.list" >> ~/$mylogfile 
+sudo sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list 
 
-echo "Updating" >> ~/tracker
-sudo apt-get update
+echo "Updating" >> ~/$mylogfile 
+sudo apt-get update 
 
-echo "Adding non-free to sources.list" >> ~/tracker
-sudo sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list
+echo "Locating the fastest Debian download site" >> ~/$mylogfile 
+sudo apt-get install netselect-apt -y 
+sudo netselect-apt 
 
-echo "Installing my base applications" >> ~/tracker
-echo "   1. Tmux" >> ~/tracker
-echo "   2. Chromium" >> ~/tracker
-echo "   3. VIM" >> ~/tracker
-echo "   4. SSH" >> ~/tracker
-echo "   5. Conky" >> ~/tracker
-sudo apt-get install tmux chromium openssh-server vim libcanberra-gtk-module fonts-crosextra-carlito fonts-crosextra-caladea conky -y
+echo "Installing my base applications" >> ~/$mylogfile 
+echo "   1. Tmux" >> ~/$mylogfile 
+echo "   2. Chromium" >> ~/$mylogfile 
+echo "   3. VIM" >> ~/$mylogfile 
+echo "   4. SSH" >> ~/$mylogfile 
+echo "   5. XRDP" >> ~/$mylogfile 
+sudo apt-get install tmux chromium xrdp openssh-server vim libcanberra-gtk-module fonts-crosextra-carlito fonts-crosextra-caladea -y 
 
-wget https://raw.githubusercontent.com/mygit100/setup/conky/conky_primary
+# Changing RDP access from root only to all users 
+sudo sed -i 's/allowed_users=console/allowed_users=anybody/' /etc/X11/Xwrapper.config 
 
-mkdir ~/.config/conky
-cp conky_primary ~/.config/conky/conky.conf
-rm conky_primary
+echo "   6. Atom Text Editor" >> ~/$mylogfile 
+wget https://atom.io/download/deb -O atom.deb 
+DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb 
+sudo apt-get install -f -y 
+DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb 
+rm atom.deb 
 
-mkdir ~/.config/autostart
-echo "[Desktop Entry]" > ~/.config/autostart/conky.desktop
-echo "Type=Application" >> ~/.config/autostart/conky.desktop
-echo "Exec=sh -c \"sleep 10; conky\"" >> ~/.config/autostart/conky.desktop
-echo "Name=Conky" >> ~/.config/autostart/conky.desktop
-echo "Comment=Autostart conky at login" >> ~/.config/autostart/conky.desktop
+echo "  7. Dropbox" >> ~/$mylogfile 
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - 
+echo "       To launch Dropbox, in a terminal window" >> ~/$mylogfile 
+echo "       type --> ~/.dropbox-dist/dropboxd" >> ~/$mylogfile 
 
-# Start conky
-echo "       The interface needs to be set in conky" >> ~/tracker
-echo "       Run -- nmcli dev status" >> ~/tracker
-echo "       For ethernet, run -- sed -i 's/eno1/xyz_interface/g' ~/.config/conky/conky.conf" >> ~/tracker
-echo "       For ethernet, wireless -- sed -i 's/wlp2s0/xyz_interface/g' ~/.config/conky/conky.conf" >> ~/tracker
+echo "   8. Rescuetime" >> ~/$mylogfile 
+wget "https://www.rescuetime.com/installers/rescuetime_current_amd64.deb" 
+DEBIAN_FRONTEND=noninteractive sudo dpkg -i rescuetime_current_amd64.deb 
+sudo apt-get install -f -y 
+DEBIAN_FRONTEND=noninteractive sudo dpkg -i rescuetime_current_amd64.deb 
+rm rescuetime_current_amd64.deb 
 
-echo "   6. Atom Text Editor" >> ~/tracker
-wget https://atom.io/download/deb -O atom.deb
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb
-sudo apt-get install -f -y
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i atom.deb
-rm atom.deb
+echo "       To launch RescueTime, in a terminal window" >> ~/$mylogfile 
+echo "       type --> rescuetime" >> ~/$mylogfile 
 
-echo "   7. Dropbox" >> ~/tracker
-cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-echo "       To launch Dropbox, in a terminal window" >> ~/tracker
-echo "       type --> ~/.dropbox-dist/dropboxd" >> ~/tracker
+# Install preferred desktop environment 
+echo "Installing Cinnamon desktop" >> ~/$mylogfile 
+sudo apt-get install cinnamon -y 
+echo "   Finished installing Cinnamon desktop" >> ~/$mylogfile 
 
-echo "   8. Rescuetime" >> ~/tracker
-wget "https://www.rescuetime.com/installers/rescuetime_current_amd64.deb"
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i rescuetime_current_amd64.deb
-sudo apt-get install -f -y
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i rescuetime_current_amd64.deb
-rm rescuetime_current_amd64.deb
+# Dell  wireless drivers 
+echo "Istalling Dell wifi drivers" >> ~/$mylogfile 
+sudo apt-get install firmware-iwlwifi 
 
-echo "       To launch RescueTime, in a terminal window" >> ~/tracker
-echo "       type --> rescuetime" >> ~/tracker
+# note wireless interface is wlp2s0  
+echo "Cleaning up" >> ~/$mylogfile 
+sudo apt-get -f install && 
+sudo apt-get autoremove && 
+sudo apt-get -y autoclean && 
+sudo apt-get -y clean 
 
-echo "   9. Firejail and Firetools" >> ~/tracker
-# Install preferred desktop environment
-echo "Installing Cinnamon desktop" >> ~/tracker
-sudo apt-get install firejail firetools cinnamon -y
-echo "   Finished installing Cinnamon desktop" >> ~/tracker
+# Installing KVM 
+echo "Installing KVM" >> ~/$mylogfile 
+sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils libguestfs-tools genisoimage virtinst libosinfo-bin -y 
 
-# Dell  wireless drivers
-echo "Installing Dell wifi drivers" >> ~/tracker
-sudo apt-get install firmware-iwlwifi
-# note wireless interface is wlp2s0
+echo "Installing Virtual Manager" >> ~/$mylogfile 
+sudo apt-get install virt-manager -y 
 
-# Installing KVM
-echo "Installing KVM" >> ~/tracker
-sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils libguestfs-tools genisoimage virtinst libosinfo-bin -y
+sudo adduser $Myuser libvirt 
+sudo adduser $Myuser libvirt-qemu 
 
-echo "Installing Virtual Manager" >> ~/tracker
-sudo apt-get install virt-manager -y
-
-echo "VM Adduser" >> ~/tracker
-sudo adduser reverset libvirt
-sudo adduser reverset libvirt-qemu
-
-echo "VM Create new group" >> ~/tracker
-nohup newgrp libvirt &
-nohup newgrp libvirt-qemu &
-nohup conky &
-
-echo "Cleaning up" >> ~/tracker
-sudo apt-get -f install &&
-sudo apt-get autoremove &&
-sudo apt-get -y autoclean &&
-sudo apt-get -y clean
+newgrp libvirt 
+newgrp libvirt-qemu 
