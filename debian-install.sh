@@ -22,7 +22,7 @@ sudo apt-get install xterm
 
 # Launch a separate terminal to track script 
 touch ~/$mylogfile 
-xterm -e bash -c 'watch -n 0.1 cat ~/$mylogfile' & 
+xterm -e bash -c 'watch -n 0.1 cat ~/'$mylogfile & 
 
 echo "Use this window to track script status" > ~/$mylogfile 
 echo "" >> ~/$mylogfile 
